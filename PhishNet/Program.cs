@@ -1,4 +1,11 @@
-﻿using E_Crawl_CSharp;
+﻿/* 
+* Public domain software, no restrictions. 
+* Released by rickd3ckard: https://github.com/rickd3ckard 
+* See: https://unlicense.org/
+*/
+
+
+using E_Crawl_CSharp;
 using MySql.Data.MySqlClient;
 using System.Text;
 using System.Text.Json;
