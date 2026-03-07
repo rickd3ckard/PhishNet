@@ -168,7 +168,11 @@ class Program
                 domainQueue.Enqueue(externalDomain);
             }
 
-            if (finishedTask.Result.EMails.Count > 0 && !string.IsNullOrWhiteSpace(Options.OutputFile)) { AppendToFile(Options.OutputFile, finishedTask.Result.EMails); }
+            if (finishedTask.Result.EMails.Count > 0 ) 
+            { 
+                if (string.IsNullOrWhiteSpace(Options.OutputFile)) { Options.OutputFile = "output.txt"; }
+                AppendToFile(Options.OutputFile, finishedTask.Result.EMails); 
+            }
 
             if (finishedTask.Result.EMails.Count > 0 && !string.IsNullOrWhiteSpace(Options.Address))
             {
