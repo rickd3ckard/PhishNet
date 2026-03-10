@@ -59,5 +59,69 @@ The filter restrains the crawler on a specific domain extension. For example, if
 </p>
 
 ## Command Examples
+Here a couple of command displaying different uses.
+
+---
+
+```bash
+dotnet run -- domain https://www.era.be/fr
+```
+<p align="justify">
+This is the most basic command. The crawler will scrape the provided domain with a depth of 1, will output emails to the program installation folder, and crawl all gathered external domains one by one indefinitely.
+</p>
+
+---
+
+```bash
+dotnet run -- domain https://www.era.be/fr -f .be -t 50 -d 3
+```
+<p align="justify">
+The crawler will scrape the provided domain recursively with a depth of 3, and only enqueue domains with the <em>.be</em> extension, and will crawl up to 50 domains concurrently using the thread pool.
+</p>
+
+---
+
+```bash
+dotnet run -- domain https://www.era.be/fr -o c:/users/rick/desktop/emails.txt -sd false
+```
+<p align="justify">
+The crawler will output the emails inside the specified path. Sub-domains derived from the provided domain will not be crawled.
+</p>
+
+---
+
+```bash
+dotnet run -- domain https://www.era.be/fr -username "u30869404_Scrappy" -password "NicePasswors123" -database "u30869404_HttpScraper" -address "srv1424.hstgr.io"
+```
+<p align="justify">
+The crawler will output the emails inside the provided SQL database. 
+</p>
+
 ## Sql Database set up
+Here find the SQL database set up to properly store crawled mails:
+### Table: `mails`
+| Column | Type | Description |
+|--------|------|-------------|
+| `website` | TINYTEXT | Stores website names (e.g. example.com) |
+| `mail` | TINYTEXT | Stores associated email addresses (e.g. contact@example.com) |
+
+### Table: `visiteddomains`
+| Column | Type | Description |
+|--------|------|-------------|
+| `domain` | TINYTEXT | Stores domain names (e.g. example.com) |
+| `date` | DATETIME | Stores the date and time the domain was visited |
+
+### SQL Command
+Here find the SQL command to create such table:
+```sql
+CREATE TABLE mails (
+    website TINYTEXT,
+    mail TINYTEXT
+);
+
+CREATE TABLE visiteddomains (
+    domain TINYTEXT,
+    date DATETIME
+);
+```
 
